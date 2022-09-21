@@ -1,0 +1,20 @@
+[
+  {
+    "id": "882338",
+    "title": "Book",
+    "body": "Read the book.",
+    "category": "Random Thought",
+    "createdAt": 1663335828906,
+    "dates": [],
+    "isArchived": false
+  },
+  {
+    "id": "882335",
+    "title": "Dentist",
+    "body": "I am gonna have a dentist appointment on the 3/5/2021, I moved it from 5/5/2021.",
+    "category": "Task",
+    "createdAt": 1663335828905,
+    "dates": ["3/5/2021", "5/5/2021"],
+    "isArchived": false
+  }
+]
