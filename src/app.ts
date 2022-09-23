@@ -1,8 +1,15 @@
 import express, { Express, Request, Response } from "express";
 
-const app: Express = express();
+import routes from "./routes";
 
 const PORT = process.env.PORT || 8080;
+
+const app: Express = express();
+
+app.use(express.json());
+app.use(express.urlencoded({ extended: false }));
+
+app.use(routes);
 
 app.get("/", (req: Request, res: Response): void => {
   res.send("Hello World");
