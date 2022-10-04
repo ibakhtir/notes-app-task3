@@ -2,21 +2,39 @@ version: "3.8"
 
 services:
   server:
-    container_name: app
+    container_name: app_container
     build: .
     depends_on:
-      - db
+      - postgres
     ports:
       - "8080:8080"
+    volumes:
+      - ./:/usr/src/app/
+      - /usr/src/app/node_modules
     restart: always
 
-  db:
-    container_name: postgres
+  postgres:
+    container_name: postgres_container
     image: postgres:latest
     ports:
       - "5432:5432"
     environment:
-      - POSTGRES_DB=postgres
-      - POSTGRES_USER=admin
-      - POSTGRES_PASSWORD=root
+      POSTGRES_DB: "postgres"
+      POSTGRES_USER: "admin"
+      POSTGRES_PASSWORD: "root"
+      PGDATA: "/var/lib/postgresql/data/pgdata"
+    volumes:
+      - .:/docker-entrypoint-initdb.d
+      - .:/var/lib/postgresql/data
     restart: always
+
+  pgadmin:
+    image: dpage/pgadmin4
+    environment:
+      PGADMIN_DEFAULT_EMAIL: "placeholder@example.com"
+      PGADMIN_DEFAULT_PASSWORD: "fakepassword123!"
+    ports:
+      - "5050:80"
+    depends_on:
+      - postgres
+    restart: unless-stopped
