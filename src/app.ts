@@ -1,5 +1,6 @@
 import express, { Express, Request, Response } from "express";
 
+import sequelize from "./models";
 import routes from "./routes";
 
 const PORT = process.env.PORT || 8080;
@@ -15,6 +16,8 @@ app.get("/", (req: Request, res: Response): void => {
   res.send("Hello World");
 });
 
-app.listen(PORT, (): void => {
-  console.log(`Server has been started on port ${PORT}...`);
+sequelize.sync().then(() => {
+  app.listen(PORT, (): void => {
+    console.log(`Server has been started on port ${PORT}...`);
+  });
 });
